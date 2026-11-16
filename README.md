@@ -37,10 +37,33 @@ The installer:
    or `C:\Program Files\ClaudeCode\` (Windows). Only an administrator can change
    these, and a user's own settings can't turn managed hooks off;
 2. gives the device a random id that survives reinstalls;
-3. sends a test event and tells you if the server didn't accept it.
+3. hides the Claude desktop app's Chat tab (see below; `--keep-chat` leaves it);
+4. sends a test event and tells you if the server didn't accept it.
 
 Restart open Claude Code sessions afterwards. Running it again (say, with a new
 URL or token) keeps the same device id.
+
+## The desktop app's Chat tab
+
+No hook runs when someone chats in the Claude desktop app's Chat tab, so those
+chats can't be recorded. The installer therefore hides that tab, and the app
+opens on its Code tab, which is recorded. It sets the app's policy settings
+`desktopHome` = `off` and `chatTabEnabled` = false (the older name, ignored from
+December 17, 2026):
+
+- macOS: `/Library/Preferences/com.anthropic.claudefordesktop.plist`
+- Windows: `HKLM\SOFTWARE\Policies\Claude`
+
+Quit and reopen the Claude app afterwards. To leave the Chat tab on, install
+with `--keep-chat` (`-KeepChat` on Windows); running it that way later shows the
+tab again, and so does uninstalling.
+
+This only steers people to the Code tab. Chat on claude.ai in a browser, in the
+mobile app and in the Claude in Chrome extension stays open, and on Team and Pro
+plans nothing can turn that off. Anthropic documents these two settings for
+managed deployments; check on one Mac that the tab goes away with your
+account before rolling it out. Some app versions may only honour them from an
+MDM profile (Jamf, Kandji, Intune) in the `com.anthropic.claudefordesktop` domain.
 
 ## Uninstall
 
