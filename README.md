@@ -1,8 +1,8 @@
 # Claude monitor
 
-Reports every Claude Code session start, prompt and session end on a device to
-your PM tool, so you can see which device used Claude Code on your account and
-when. The log lives on the PM tool server (**Claude activity** in its sidebar).
+Reports every Claude Code session start, prompt, model switch and session end
+on a device to your PM tool, so you can see which device used Claude Code on
+your account and when. The log lives on the PM tool server (**Claude activity** in its sidebar).
 Entries can't be edited there, so they outlast deleted conversations; only the
 people allowed to read the log can delete them.
 
@@ -54,11 +54,18 @@ sudo ./install.sh --uninstall
 
 ## What is sent
 
-The event name, session id, project folder and first few hundred characters of
-each prompt (from Claude Code), plus the computer name, OS user, OS and entry
-point (terminal, desktop app, …). On a Mac the computer name is the one set in
-System Settings, which doesn't change with the network. The server adds the IP
-address it sees.
+The event name, session id, project folder, model and first few hundred
+characters of each prompt (from Claude Code), plus the computer name, OS user,
+OS, entry point (terminal, desktop app, …) and the MAC address of the network
+adapter the device's default route uses. On a Mac the computer name is the one
+set in System Settings, which doesn't change with the network, and the MAC is
+the hardware address, not a private Wi-Fi one. The server adds the IP address
+it sees.
+
+Claude Code names the model when a session starts and when you switch models
+(`/model`); the server gives each prompt the latest model its session
+reported. The MAC address is reported by the device, so unlike the IP address
+it could be faked.
 
 The hook never holds up Claude Code: on macOS and Linux it posts in the
 background, and on Windows it hands the event to a hidden copy of itself.
