@@ -2,8 +2,9 @@
 
 Reports every Claude Code session start, prompt and session end on a device to
 your PM tool, so you can see which device used Claude Code on your account and
-when. The log lives on the PM tool server (**Claude activity** in its sidebar)
-and can't be edited or deleted from there, so it outlasts deleted conversations.
+when. The log lives on the PM tool server (**Claude activity** in its sidebar).
+Entries can't be edited there, so they outlast deleted conversations; only the
+people allowed to read the log can delete them.
 
 The PM tool side (the `/api/claude-activity` endpoint and the page) ships with
 the PM tool. This repo holds only the device installers.
@@ -55,7 +56,12 @@ sudo ./install.sh --uninstall
 
 The event name, session id, project folder and first few hundred characters of
 each prompt (from Claude Code), plus the computer name, OS user, OS and entry
-point (terminal, desktop app, …). The server adds the IP address it sees.
+point (terminal, desktop app, …). On a Mac the computer name is the one set in
+System Settings, which doesn't change with the network. The server adds the IP
+address it sees.
+
+The hook never holds up Claude Code: on macOS and Linux it posts in the
+background, and on Windows it hands the event to a hidden copy of itself.
 
 ## Limits
 
@@ -66,5 +72,10 @@ point (terminal, desktop app, …). The server adds the IP address it sees.
   points to such a device.
 - An administrator on the device can uninstall it; what was already sent stays.
 - Events sent while the device is offline are lost.
+- The token is the same on every device and sits in the hook, which every user
+  on the device can read (the hook runs as them). Anyone holding it can post
+  events with any device name, so the IP address is the one field they can't
+  fake. If a device leaks it, set a new `CLAUDE_MONITOR_TOKEN` on the server
+  and run the installer again on every device.
 - If `managed-settings.json` already exists for another reason, the installer
   stops; merge `managed-settings.example.json` into it by hand.
