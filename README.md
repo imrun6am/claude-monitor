@@ -17,13 +17,13 @@ end up in your shell history.
 **macOS / Linux**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/OWNER/REPO/main/install.sh | sudo bash -s -- https://your-pm-tool.example.com
+curl -fsSL https://raw.githubusercontent.com/imrun6am/claude-monitor/main/install.sh | sudo bash -s -- https://your-pm-tool.example.com
 ```
 
 **Windows** (PowerShell as Administrator)
 
 ```powershell
-& ([scriptblock]::Create((irm https://raw.githubusercontent.com/OWNER/REPO/main/install.ps1))) -Url https://your-pm-tool.example.com
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/imrun6am/claude-monitor/main/install.ps1))) -Url https://your-pm-tool.example.com
 ```
 
 Or clone the repo and run `sudo ./install.sh https://your-pm-tool.example.com`

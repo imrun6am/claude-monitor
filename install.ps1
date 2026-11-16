@@ -9,7 +9,7 @@
 #   powershell -ExecutionPolicy Bypass -File .\install.ps1 -Uninstall
 #
 # Or straight from GitHub, without cloning:
-#   & ([scriptblock]::Create((irm <raw URL of install.ps1>))) -Url https://pm.example.com
+#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/imrun6am/claude-monitor/main/install.ps1))) -Url https://pm.example.com
 
 param(
     [string]$Url,

@@ -13,7 +13,7 @@
 #   sudo ./install.sh --uninstall
 #
 # Or straight from GitHub, without cloning:
-#   curl -fsSL <raw URL of install.sh> | sudo bash -s -- https://pm.example.com
+#   curl -fsSL https://raw.githubusercontent.com/imrun6am/claude-monitor/main/install.sh | sudo bash -s -- https://pm.example.com
 #
 set -euo pipefail
 
