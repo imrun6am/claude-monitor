@@ -1,7 +1,7 @@
 # Claude monitor
 
-Reports every Claude Code session start, prompt, model switch and session end
-on a device to your PM tool, so you can see which device used Claude Code on
+Reports every Claude Code session start, prompt, model switch, browser action
+and session end on a device to your PM tool, so you can see which device used Claude Code on
 your account and when. The log lives on the PM tool server (**Claude activity** in its sidebar).
 Entries can't be edited there, so they outlast deleted conversations; only the
 people allowed to read the log can delete them.
@@ -62,6 +62,11 @@ set in System Settings, which doesn't change with the network, and the MAC is
 the hardware address, not a private Wi-Fi one. The server adds the IP address
 it sees.
 
+When Claude Code drives Chrome through Claude in Chrome, each browser action is
+sent too: the tool and action (`navigate`, `computer: left_click`, …) and the
+page it goes to. The PM tool keeps the page address without its query string,
+and nothing typed or run in the page.
+
 Claude Code names the model when a session starts and when you switch models
 (`/model`); the server gives each prompt the latest model its session
 reported. The MAC address is reported by the device, so unlike the IP address
@@ -75,6 +80,10 @@ background, and on Windows it hands the event to a hidden copy of itself.
 - Covers Claude Code only: the terminal, the desktop app's Code tab and Remote
   Control sessions on a device that has it installed. claude.ai chat in a
   browser or the mobile app isn't covered.
+- Claude in Chrome shows up only when Claude Code drives Chrome through it.
+  Chatting with the extension directly in Chrome doesn't run Claude Code's
+  hooks, so it isn't recorded; your Claude account's admin tools are the place
+  to look for that.
 - A device without it reports nothing. Usage going up with no matching events
   points to such a device.
 - An administrator on the device can uninstall it; what was already sent stays.
